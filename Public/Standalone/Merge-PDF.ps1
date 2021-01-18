@@ -1,4 +1,4 @@
-﻿function Merge-PDF {
+﻿function Combine-PDF {
     [CmdletBinding()]
     param(
         [string[]] $InputFile,
@@ -12,7 +12,7 @@
             [iText.Kernel.Utils.PdfMerger] $Merger = [iText.Kernel.Utils.PdfMerger]::new($PDF)
         } catch {
             $ErrorMessage = $_.Exception.Message
-            Write-Warning "Merge-PDF - Processing document $OutputFile failed with error: $ErrorMessage"
+            Write-Warning "Combine-PDF - Processing document $OutputFile failed with error: $ErrorMessage"
         }
         foreach ($File in $InputFile) {
             if ($File -and (Test-Path -LiteralPath $File)) {
@@ -24,7 +24,7 @@
                     $SourcePDF.close()
                 } catch {
                     $ErrorMessage = $_.Exception.Message
-                    Write-Warning "Merge-PDF - Processing document $ResolvedFile failed with error: $ErrorMessage"
+                    Write-Warning "Combine-PDF - Processing document $ResolvedFile failed with error: $ErrorMessage"
                 }
             }
         }
@@ -32,9 +32,9 @@
             $PDF.Close()
         } catch {
             $ErrorMessage = $_.Exception.Message
-            Write-Warning "Merge-PDF - Saving document $OutputFile failed with error: $ErrorMessage"
+            Write-Warning "Combine-PDF - Saving document $OutputFile failed with error: $ErrorMessage"
         }
     } else {
-        Write-Warning "Merge-PDF - Output file was empty. Please give a name to file. Terminating."
+        Write-Warning "Combine-PDF - Output file was empty. Please give a name to file. Terminating."
     }
 }
